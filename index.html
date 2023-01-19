@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<title>Encriptador</title>
+
+<body>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+
+<p>Enter text to encrypt: <input type="text" id="text"></p>
+<button onclick="encrypt()">Encrypt</button>
+<button onclick="decrypt()">Decrypt</button>
+<button onclick="copy()">Copy</button>
+<p id="result"></p>
+
+<script>
+var originalVowels = /[aeiou]/gi;
+var encodedVowels = {
+    a: "ai",
+    i: "imes",
+    o: "ober",
+    u:"ufat",
+    e:"enter",
+};
+
+function encrypt() {
+    var text = document.getElementById("text").value;
+    var encrypted = text.replace(originalVowels, function(vowel) {
+        return encodedVowels[vowel.toLowerCase()];
+    });
+    document.getElementById("result").innerHTML = encrypted;
+}
+
+function decrypt() {
+    var text = document.getElementById("result").innerHTML;
+    var decrypted = text.replace(/ai/g, 'a').replace(/imes/g, 'i').replace(/ober/g,'o').replace(/ufat/g,'u').replace(/enter/g,'e');
+    document.getElementById("result").innerHTML = decrypted;
+}
+
+function copy() {
+    var text = document.getElementById("result").innerHTML;
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+    alert("Texto copiado correctamente")
+}
+
+</script>
+
+</body>
+</html>
